@@ -1,0 +1,234 @@
+<nav class="navbar">
+    <div class="navP">
+      <p class="change" (click)="redirectToHomePage()">{{ pageTitle }}</p>
+  </div>
+    <div class="navBt">
+          <button class="button" *ngIf="hideBtn" (click)="redirectToDashboard()" >Dashboard</button>
+    </div>
+</nav>
+
+
+
+<div class="container" *ngIf="showContainer">
+  <div class="form-container">
+    <div #content class="content">
+      <!-- {{ userForm.value | json }} -->
+      <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm.value)">
+        <!-- <hr /> -->
+
+        <!-- {{ employeeModel | json }} -->
+
+        <!-- <hr />  -->
+
+        <!-- {{employeeModel.name | json}} -->
+
+        <div class="form-field">
+          <label for="name">Name:</label>
+          <input
+            #name="ngModel"
+            name="name"
+            placeholder="Enter your name"
+            class="form-control"
+            type="text"
+            name="name"
+            required
+            [(ngModel)]="selectedName"
+            [class.is-invalid]="!name.valid && name.touched"
+          />
+          <small
+            class="text-danger"
+            [class.d-none]="name.valid || name.untouched"
+            >Name is required</small
+          >
+
+          <div class="form-field">
+            <label for="leaveType">Leave Type:</label>
+            <select
+              #leaveType="ngModel"
+              class="form-control"
+              id="leaveType"
+              name="leaveType"
+              required
+              [(ngModel)]="selectedLeaveType"
+              [class.is-invalid]="!leaveType.valid && leaveType.touched"
+            >
+              <option value="" disabled selected>None</option>
+              <option *ngFor="let option of leaveOptions">{{ option }}</option>
+            </select>
+            <small
+              class="text-danger"
+              [class.d-none]="leaveType.valid || leaveType.untouched"
+              >Leave-Type is required</small
+            >
+          </div>
+
+          <div class="form-control foLeave Type rm-field">
+            <label for="fromDate">From:</label>
+            <input
+              #fromDate="ngModel"
+              type="date"
+              id="fromDate"
+              name="fromDate"
+              required
+              [(ngModel)]="selectedFDate"
+              [class.is-invalid]="!fromDate.valid && fromDate.touched"
+              [min]="getMinDate()"
+              [max]="selectedTDate || getMaxDate()"
+            />
+            <!-- <p>{{employeeModel.from_date}}</p> -->
+            <small
+              class="text-danger"
+              [class.d-none]="fromDate.valid || fromDate.untouched"
+              >From-date is required !</small
+            >
+            <br />
+
+            <label for="toDate">To:</label>
+            <input
+              #toDate="ngModel"
+              type="date"
+              id="toDate"
+              name="toDate"
+              required
+              [(ngModel)]="selectedTDate"
+              [class.is-invalid]="!toDate.valid && toDate.untouched"
+              [min]="selectedFDate || getMinDate()"
+              [max]="getMaxDate()"
+            />
+            <small
+              class="text-danger"
+              [class.d-none]="toDate.valid || toDate.untouched"
+              >required field !</small
+            >
+          </div>
+
+          <div class="form-field">
+            <label>Team Names:</label>
+            <input
+              #teamA="ngModel"
+              type="radio"
+              id="teamA"
+              name="team"
+              value="AWS"
+              required
+              [(ngModel)]="selectedTeam"
+            />
+            <label for="teamA">AWS</label>
+            <input
+              #teamB="ngModel"
+              type="radio"
+              id="teamB"
+              name="team"
+              value="AZURE"
+              required
+              [(ngModel)]="selectedTeam"
+            />
+            <label for="teamB">AZURE</label>
+          </div>
+
+          <div
+            [class.d-none]="
+              leaveType.value === 'Casual Leave' ||
+              leaveType.value === 'Earned Leave'
+            "
+            *ngIf="showFileField"
+            class="form-field"
+          >
+            <label class="file" for="file">File:</label>
+            <input
+              #input
+              type="file"
+              class="inpFile"
+              [(ngModel)]="selectedFile"
+              name="file"
+              accept=".pdf,.png"
+            />
+          </div>
+          <!-- (input)="checkFields() -->
+          <div class="form-field">
+            <label for="reporter">Reporter:</label>
+            <select
+              #reporter="ngModel"
+              class="form-control"
+              id="reporter"
+              name="reporter"
+              required
+              [(ngModel)]="selectedReporter"
+            >
+              <option value="" disabled selected>Select Reporter</option>
+              <option *ngFor="let reporter of reporters">{{ reporter }}</option>
+            </select>
+            <small
+              class="text-danger"
+              [class.d-none]="reporter.valid || reporter.untouched"
+              >please choose a reporter</small
+            >
+          </div>
+
+          <div class="button-container">
+            <button
+              *ngIf="buttonFlag"
+              type="submit"
+              class="btn btn-warning submit-button"
+              [disabled]="!userForm.valid"
+            >
+              Preview
+            </button>
+            <button
+              class="btn btn-secondary reset-button"
+              (click)="clearPage()"
+              type="reset"
+            >
+              Clear
+            </button>
+            <!-- <button class="btn btn-warning confirm-button" (click)="sendData()">Confirm &#x2714;</button> -->
+          </div>
+        </div>
+      </form>
+    </div>
+    <a
+      class="link"
+      *ngIf="dataFlag"
+      (click)="navigateToComponent()"
+      (mouseover)="changeInnerHtml()"
+      (mouseout)="resetInnerHtml()"
+      routerLink="componentUrl"
+      >{{ recieved }}</a
+    >
+  </div>
+
+  <div class="image-container" *ngIf="imageFlag"></div>
+  <div class="wave-container" *ngIf="dataFlag">
+    <h1 class="wave-text">Employees Data</h1>
+    <!-- <img class="wave-img" src="/home/xs317-sahkau/Downloads/Ang_Leave_Form/Images/search.gif"  alt=""> -->
+
+    <table class="preview" >
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Leave Type</th>
+          <th>From Date</th>
+          <th>To Date</th>
+          <th>Team</th>
+          <th>File</th>
+          <th>Reporter</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let formData of formList">
+          <td>{{ formData.Name }}</td>
+          <td>{{ formData.LeaveType }}</td>
+          <td>{{ formData.LeaveFrom }}</td>
+          <td>{{ formData.LeaveTo }}</td>
+          <td>{{ formData.Team }}</td>
+          <td>{{ formData.File }}</td>
+          <td>{{ formData.Reporter }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- <span>
+    <i class="bi bi-file-text-fill"></i>
+  </span> -->
+  </div>
+</div>

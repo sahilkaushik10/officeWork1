@@ -1,0 +1,116 @@
+<button class="views view3" (click)="showView('view3')">View 3</button>
+<button class="views view4" (click)="showView('view4')">View 4</button>
+<button class="views view6" (click)="showView('view6')">View 6</button>
+
+  <table class="interactive-table" *ngIf="selectedView === 'view3'">
+   <tr>
+     <th>Name</th>
+     <th>TotalLeaveDays</th>
+     <!-- <th>Rank</th> -->
+   </tr>
+   <tr *ngFor="let item of view3Data">
+     <td>{{ item.name }}</td>
+     <td>{{ item.total_leave_days }}</td>
+     <!-- <td *ngFor="let rank of emplRank">{{ rank }}</td> -->
+   </tr>
+ </table>
+ 
+ <div *ngIf="canvasDiv1" class="barCanv">
+
+   <canvas *ngIf="showBarChart" #barChart ></canvas> 
+ </div>
+
+
+ <div class="mainCanv">
+   <div *ngIf="canvasDiv" class="canv can1">
+   
+       <canvas *ngIf="showPieChart" #pieChart1 ></canvas>
+       <h1  style="margin: 1rem 4rem;" *ngIf="showPieChart">Data Engineering</h1>
+   </div>
+   
+   <div *ngIf="canvasDiv" class="canv can2">
+     <canvas *ngIf="showPieChart" #pieChart ></canvas>
+     <h1  style="margin: 1rem 14rem;" *ngIf="showPieChart">IT</h1>
+ 
+   </div>
+
+ </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <table *ngIf="selectedView === 'view4'">
+  <tr>
+    <th>Reporter</th>
+    <th>Employee Count</th>
+  </tr>
+  <tr *ngFor="let item of view4Data">
+    <td>{{ item.reporter }}</td>
+    <td>{{ item.employeeCount }}</td>
+  </tr>
+</table>
+
+<table *ngIf="selectedView === 'view6'">
+  <tr>
+    <th>Team</th>
+    <th>Leave Type</th>
+    <th>Leave Count</th>
+  </tr>
+  <tr *ngFor="let item of view6Data">
+    <td>{{ item.team }}</td>
+    <td>{{ item.leave_type }}</td>
+    <td>{{ item.leave_count }}</td>
+  </tr>
+</table> --> 
+
+
+

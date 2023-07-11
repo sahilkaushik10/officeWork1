@@ -1,0 +1,63 @@
+body{
+  background: none;
+}
+
+.views {
+    flex: 1;
+    padding: 10px;
+    margin:10px 10px;
+    background-color: #5bc75f;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .view3 {
+
+    background-color: #e4a3a3; 
+  }
+  
+  .view4 {
+    background-color: #8ac78a; 
+  }
+  
+  .view6 {
+    background-color: #6161be;
+
+  }
+
+
+   .interactive-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .interactive-table th,
+  .interactive-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .interactive-table th {
+    background-color: #f2f2f2;
+  }
+
+  .canv{
+    height: 450px; width: 450px;
+    margin: 200px 70px;
+  }
+
+  .barCanv{
+    height: 1000px; width: 1000px;
+    margin: 150px 450px;
+  }
+  
+  .mainCanv{
+    margin-left: 20%;
+    display: flex;
+    /* justify-content: space-between; */
+  }
+ /* .can1{
+  display: inline-block;
+ } */
